@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ namespace _2artile1_3
     {
         static void Main(string[] args)
         {
-            Blog blog1 = new Blog("Золотой Воробей", "муж.", 29, 500000, 60);
+            int number=0;
+            Blog blog1 = new Blog("Золотой Воробей", "муж.", 29, 5000000, 60);
             Blog blog2 = new Blog("Красная Акула","жен.",27,120000, 73);
             Blog blog3 = new Blog("Зеленка","жен.", 15 , 25000 , 34);
 
@@ -19,46 +21,74 @@ namespace _2artile1_3
             blog2.PrintInfo();
             blog3.PrintInfo();
 
-            Blog blog4 = new Blog();
+            bool success = false;
+            int i = 3;
+            do
+            {
+                Console.WriteLine("Добавить нового блогера?(да,нет)");
+                string input = Console.ReadLine();
+                if (input.Contains("да"))
+                {
+                    success = true;
+                    i = i + 1;
+                    AddNewBlogger(number, i);
+                }
+                else break;
+            } while (!success);
+            Console.WriteLine("Программа завершена!");
+        }
+        static void CheckInt(int number)
+        {
+                bool success= false;
+            do
+            {
+                string input = Console.ReadLine();
+                success = int.TryParse(input, out number);
+                if(!success)
+                {
+                    Console.WriteLine("Необходимо ввести число!");
+                }
+            } while (!success);
+        }
+            static void AddNewBlogger(int number, int i)
+            {
+            Blog blog = new Blog();
+            for(int n =0; n<1; n++)
+            {
+                string blog4 = ($"blog{i}");
+            }
+            
             Console.WriteLine("Добавление нового блогера");
             Console.Write("Имя: ");
-            blog4.Name = Console.ReadLine();
+            blog.Name = Console.ReadLine();
             bool success = false;
             do
             {
                 Console.Write("Пол (true - муж , false - жен)");
-                blog4.Gender = Console.ReadLine();
-                if (blog4.Gender.Contains("true") || blog4.Gender.Contains("false")) success = true;
-                if (blog4.Gender == "true") blog4.Gender = "муж.";
-                else blog4.Gender = "жен.";
+                blog.Gender = Console.ReadLine();
+                if (blog.Gender.Contains("true") || blog.Gender.Contains("false")) success = true;
+                if (blog.Gender == "true") blog.Gender = "муж.";
+                else blog.Gender = "жен.";
             } while (!success);
-            do
-            {
-                success = false;
-                Console.Write("Возраст: ");
-                string input1 = Console.ReadLine();
-                success = int.TryParse(input1, out  blog4.Age);
-            } while (!success);
-            do
-            {
-                success = false;
-                Console.Write("Просмотры: ");
-                string input2 = Console.ReadLine();
-                success = int.TryParse(input2, out blog4.Views);
-            } while (!success);
-            do
-            {
-                success = false;
-                Console.Write("Рейтинг: ");
-                string input3 = Console.ReadLine();
-                success = int.TryParse(input3, out blog4.Rate);
-            } while (!success);
+            Console.Write("Возраст: ");
+            CheckInt(number);
+            number = blog.Age;
+            Console.Write("Просмотры: ");
+            CheckInt(number);
+            number = blog.Views;
+            Console.Write("Рейтинг: ");
+            CheckInt(number);
+            number = blog.Rate;
             Console.Clear();
+
+            Blog blog1 = new Blog("Золотой Воробей", "муж.", 29, 500000, 60);
+            Blog blog2 = new Blog("Красная Акула", "жен.", 27, 120000, 73);
+            Blog blog3 = new Blog("Зеленка", "жен.", 15, 25000, 34);
 
             blog1.PrintInfo();
             blog2.PrintInfo();
             blog3.PrintInfo();
-            blog4.PrintInfo();
+            blog.PrintInfo();
         }
     }
 }
